@@ -15,6 +15,11 @@ class Tweeter
     while command != "q"
       printf "enter command: "
       command = gets.chomp
+      case command
+      when 'q' then puts "Goodbye!"
+      else
+        puts "Sorry, I don't know how to \"#{command}\""
+      end
     end
   end
 
