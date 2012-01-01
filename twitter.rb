@@ -14,9 +14,12 @@ class Tweeter
     command = ""
     while command != "q"
       printf "enter command: "
-      command = gets.chomp
+      input = gets.chomp
+      parts = input.split
+      command = parts[0]
       case command
-      when 'q' then puts "Goodbye!"
+      when "q" then puts "Goodbye!"
+      when "t" then tweet(parts[1..-1].join(" "))
       else
         puts "Sorry, I don't know how to \"#{command}\""
       end
@@ -28,6 +31,7 @@ class Tweeter
       puts "Tweet is longer than 140 characters"
     else
       @client.update(message)
+      puts "Tweeted \"#{message}\""
     end
   end
 end
