@@ -20,6 +20,7 @@ class Tweeter
       case command
       when "q" then puts "Goodbye!"
       when "t" then tweet(parts[1..-1].join(" "))
+      when "dm" then dm(parts[1], parts[2..-1].join(""))
       else
         puts "Sorry, I don't know how to \"#{command}\""
       end
@@ -32,6 +33,17 @@ class Tweeter
     else
       @client.update(message)
       puts "Tweeted \"#{message}\""
+    end
+  end
+
+  def dm(target, message)
+    puts "Trying to send #{target} this direct message:"
+    puts message
+    can_i_dm = @client.friendships(target)[0][:screen_name]
+    if can_i_dm == target
+      tweet("d #{target} #{message}")
+    else
+      puts "#{target} does not follow you"
     end
   end
 end
